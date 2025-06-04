@@ -1,0 +1,25 @@
+public class Cliente
+{
+    private static int LocalizarID_Cliente = 1;
+
+    public int Id { get; private set; }
+    public string Nome { get; private set; }
+    public string Email { get; private set; }
+    public string Cpf { get; private set; }
+
+    // Construtor
+    public Cliente(string nome, string email, string cpf)
+    {
+        if (string.IsNullOrWhiteSpace(nome))
+            throw new ArgumentException("Nome inválido.");
+        if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+            throw new ArgumentException("Email inválido.");
+        if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11)
+            throw new ArgumentException("CPF inválido.");
+
+        Id = _contadorId++;
+        Nome = nome;
+        Email = email;
+        Cpf = cpf;
+    }
+}
