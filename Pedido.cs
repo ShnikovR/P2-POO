@@ -15,7 +15,7 @@ public class Pedido
         if (itens == null || itens.Count == 0)
             throw new ArgumentException("Pedido deve ter ao menos um item.");
 
-        Id = _contadorId++;
+        Id = LocalizarID_Pedido++;
         Cliente = cliente;
         Itens = itens;
         Data = DateTime.Now;

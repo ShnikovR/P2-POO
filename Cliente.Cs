@@ -17,7 +17,7 @@ public class Cliente
         if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11)
             throw new ArgumentException("CPF inválido.");
 
-        Id = _contadorId++;
+        Id = LocalizarID_Cliente++;
         Nome = nome;
         Email = email;
         Cpf = cpf;

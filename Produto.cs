@@ -17,7 +17,7 @@ public class Produto
         if (string.IsNullOrWhiteSpace(categoria))
             throw new ArgumentException("Categoria inválida.");
 
-        Id = _contadorId++;
+        Id = LocalizarID_Produto++;
         Nome = nome;
         Preco = preco;
         Categoria = categoria;
