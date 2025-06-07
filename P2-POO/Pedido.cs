@@ -11,9 +11,9 @@ public class Pedido
     public Pedido(Cliente cliente, List<ItemPedido> itens)
     {
         if (cliente == null)
-            throw new ArgumentException("Cliente inválido.");
+            throw new ArgumentException("O cliente informado é inválido.");
         if (itens == null || itens.Count == 0)
-            throw new ArgumentException("Pedido deve ter ao menos um item.");
+            throw new ArgumentException("O pedido deve ser maior que zero.");
 
         Id = LocalizarID_Pedido++;
         Cliente = cliente;
@@ -26,5 +26,10 @@ public class Pedido
     private void CalcularValorTotal()
     {
         ValorTotal = Itens.Sum(item => item.Subtotal);
+    }
+    public void AtualizarValorTotalComDesconto(decimal desconto)
+    {
+        CalcularValorTotal();
+        ValorTotal -= desconto;
     }
 }

@@ -7,9 +7,9 @@ public class ItemPedido
     public ItemPedido(Produto produto, int quantidade)
     {
         if (produto == null)
-            throw new ArgumentException("Produto inválido.");
+            throw new ArgumentException("O produto informado é inválido.");
         if (quantidade <= 0)
-            throw new ArgumentException("Quantidade deve ser maior que zero.");
+            throw new ArgumentException("A quantidade deve ser maior que zero.");
 
         Produto = produto;
         Quantidade = quantidade;

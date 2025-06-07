@@ -10,11 +10,11 @@ public class Produto
     public Produto(string nome, decimal preco, string categoria)
     {
         if (string.IsNullOrWhiteSpace(nome))
-            throw new ArgumentException("Nome inválido.");
+            throw new ArgumentException("O nome informado é inválido.");
         if (preco <= 0)
-            throw new ArgumentException("Preço deve ser maior que zero.");
+            throw new ArgumentException("O preço deve ser maior que zero.");
         if (string.IsNullOrWhiteSpace(categoria))
-            throw new ArgumentException("Categoria inválida.");
+            throw new ArgumentException("Está categoria é inválida.");
 
         Id = LocalizarID_Produto++;
         Nome = nome;

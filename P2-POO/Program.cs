@@ -1,45 +1,59 @@
 using System;
+using System.Collections.Generic;
+
+public interface ILogger
+{
+    void Logar(string mensagem);
+}
+
+public interface IDescontoStrategy
+{
+    decimal CalcularDesconto(List<ItemPedido> itens);
+}
 
 class Program
 {
     static void Main()
     {
-        try
-        {
-            Cliente cliente1 = new Cliente("Victor Araujo", "victor2@hotmail.com", "59171348204");
-            Cliente cliente2 = new Cliente("Luisa Souza", "luisass@gmail.com", "53587909008");
+        ILogger logger = new ConsoleLogger();
 
-            Console.WriteLine("Clientes cadastrados:");
-            ExibirCliente(cliente1);
-            ExibirCliente(cliente2);
-        }
-        catch (ArgumentException ex)
-        {
-            Console.WriteLine($"Erro ao cadastrar cliente: {ex.Message}");
-        }
+        Produto p1 = new Produto("Notebook", 1050m, "Tecnologia");
+        Produto p2 = new Produto("Capacete", 150m, "Acessórios");
+        Produto p3 = new Produto("Gume Ardente", 200m, "Facas");
 
-        try
-        {
-            Produto produto1 = new Produto("Windows 7 Vista", 400.00m, "Eletrônicos");
-            Produto produto2 = new Produto("Rato de borracha", 25.00m, "Brinquedos");
+        Cliente cliente = new Cliente("Carlos", "carloseduardosouzazneto@email.com", "09876543211");
 
-            Console.WriteLine("Produtos cadastrados:");
-            ExibirProduto(produto1);
-            ExibirProduto(produto2);
-        }
-        catch (ArgumentException ex)
+        IDescontoStrategy desconto = new SemDescontoStrategy();
+
+        PedidoFactory pedidoFactory = new PedidoFactory();
+
+        RegrasPedido regras = new RegrasPedido(logger, pedidoFactory);
+
+        var produtosComQuantidade = new List<(Produto produto, int quantidade)>
         {
-            Console.WriteLine($"Erro ao cadastrar produto: {ex.Message}");
-        }
+            (p1, 1),
+            (p2, 2),
+            (p3, 3)
+        };
+
+        Pedido pedido = regras.CriarPedidoComDesconto(cliente, produtosComQuantidade, desconto);
+
+        Console.WriteLine($"Este pedido foi criado para {pedido.Cliente.Nome} - O valor total do pedido é: R$ {pedido.ValorTotal:F2}");
     }
+}
 
-    static void ExibirCliente(Cliente cliente)
+public class ConsoleLogger : ILogger
+{
+    public void Logar(string mensagem)
     {
-        Console.WriteLine($"ID: {cliente.Id} | Nome: {cliente.Nome} | Email: {cliente.Email} | CPF: {cliente.Cpf}");
+        Console.WriteLine($"LOG: {mensagem}");
     }
+}
 
-    static void ExibirProduto(Produto produto)
+public class SemDescontoStrategy : IDescontoStrategy
+{
+    public decimal CalcularDesconto(List<ItemPedido> itens)
     {
-        Console.WriteLine($"ID: {produto.Id} | Nome: {produto.Nome} | Preço: R${produto.Preco:F2} | Categoria: {produto.Categoria}");
+        return 0;
     }
 }

@@ -9,11 +9,11 @@ public class Cliente
     public Cliente(string nome, string email, string cpf)
     {
         if (string.IsNullOrWhiteSpace(nome))
-            throw new ArgumentException("Nome inválido.");
+            throw new ArgumentException("O nome informado é inválido.");
         if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
-            throw new ArgumentException("Email inválido.");
+            throw new ArgumentException("O email informado é inválido.");
         if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 11)
-            throw new ArgumentException("CPF inválido.");
+            throw new ArgumentException("O CPF informado é inválido.");
 
         Id = LocalizarID_Cliente++;
         Nome = nome;
